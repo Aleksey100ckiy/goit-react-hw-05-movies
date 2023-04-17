@@ -1,11 +1,18 @@
-import { Link, Outlet } from "react-router-dom";
+// import { FilmList } from "components/FilmList";
 
 const Home = () => {
-    return (
-        <div>
-            <h1>Home!</h1>
-        </div>
-    )
+  return (
+    <main>
+      <h1>Trendings</h1>
+     
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto,
+        laboriosam placeat incidunt rem illum animi nemo quibusdam quia
+        voluptatum voluptate.
+          </p>
+          
+    </main>
+  );
 };
 
 export default Home;
