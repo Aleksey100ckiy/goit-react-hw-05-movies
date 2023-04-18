@@ -5,6 +5,8 @@
 // const instance = axios.create({
 //   baseURL: 'https://api.themoviedb.org/3/',
 // });
+import { useState, useEffect } from "react";
+
 
 const BASE_URL = "https://api.themoviedb.org/3/";
 const KEY = "0aea76bf17d3a057de2e549752e53890";
@@ -14,3 +16,4 @@ export const getFilm = () => {
 
    return fetch(`${BASE_URL}/trending/all/day?api_key=${KEY}&page=1&language=en-US`);
 }
+

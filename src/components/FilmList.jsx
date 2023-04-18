@@ -12,6 +12,6 @@ export const FilmList = ({ films }) => {
           </Link>
         </CardWrapper>
       ))}
-    </Container>
+    </Container >
   );
 };
