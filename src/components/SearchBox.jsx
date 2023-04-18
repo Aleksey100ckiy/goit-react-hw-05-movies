@@ -1,4 +1,5 @@
-import { Wrapper, Input, Icon } from "../components/SearchBox.styled";
+import { Wrapper, Icon, Input } from "../components/SearchBox.styled";
+
 
 export const SearchBox = ({ value, onChange }) => {
   return (

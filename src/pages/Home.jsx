@@ -1,18 +1,33 @@
-// import { FilmList } from "components/FilmList";
+import { useState } from "react";
+import { getFilm } from "services/API";
+import { FilmList } from "components/FilmList";
 
-const Home = () => {
+function Home() {
+
+  const [arrFilms, setFilms] = useState([]);
+
+  const addFilmsToArr = () =>{
+  getFilm().then(response => response.json())
+            .then(filmEl => {
+              setFilms(...filmEl);
+            })
+            .catch(errorEl => {
+              console.log('error >>', errorEl);
+            })
+            .finally(() => {
+              console.log('done!');
+            });
+  }
+  addFilmsToArr();
+  
   return (
     <main>
       <h1>Trendings</h1>
-     
-      <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto,
-        laboriosam placeat incidunt rem illum animi nemo quibusdam quia
-        voluptatum voluptate.
-          </p>
-          
+      <FilmList films={arrFilms}></FilmList>
     </main>
+
+
   );
-};
+}
 
 export default Home;
