@@ -5,7 +5,6 @@
 // const instance = axios.create({
 //   baseURL: 'https://api.themoviedb.org/3/',
 // });
-import { useState, useEffect } from "react";
 
 
 const BASE_URL = "https://api.themoviedb.org/3/";
