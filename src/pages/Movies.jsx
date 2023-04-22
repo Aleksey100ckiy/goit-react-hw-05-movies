@@ -1,15 +1,53 @@
 import { SearchBox } from "../components/SearchBox";
+import { FilmList } from "components/FilmList";
+import { getFilm } from "services/API";
+import { useSearchParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const Movies = () => {
+  const [movies, setMovies] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [visibleMovies, setVisibleMovies] = useState([])
+  const searchFilms = searchParams.get("name") ?? "";
+  
+ 
+  const updateQueryString = (name) => {
+    const nextParams = name !== "" ? { name } : {};
+    setSearchParams(nextParams);
+  };
+
+  useEffect(() => {
+    getFilm().then(response => response.json())
+      .then(filmEl => {
+        setMovies((
+          [...filmEl.results]));
+      })
+      .catch(errorEl => {
+        console.log('error >>', errorEl);
+      })
+      .finally(() => {
+        console.log('done!');
+      });
+  }, []);
+  
+  useEffect(() => {
+    setVisibleMovies(movies.filter((movie) =>
+   (movie.title ? movie.title : movie.name).toLowerCase().includes(searchFilms.toLowerCase())) 
+  );
+  },[searchParams])
+
   return (
     <main>
       <h1>Movies</h1>
-      <SearchBox></SearchBox>
+      <SearchBox value={searchFilms} onChange={ updateQueryString}></SearchBox>
+      <FilmList films={ visibleMovies }></FilmList>
     </main>
   );
 };
 
 export default Movies;
+
+
 
 // import { useSearchParams } from "react-router-dom";
 

@@ -1,8 +1,26 @@
 
 import { FilmList } from "components/FilmList";
+import { getFilm } from "services/API";
+import { useState, useEffect } from "react";
 
-function Home({ films }) {
+function Home() {
+  const [films, setFilms] = useState([]);
+  
 
+  useEffect(() => {
+    getFilm().then(response => response.json())
+      .then(filmEl => {
+        setFilms((
+          [...filmEl.results]));
+      })
+      .catch(errorEl => {
+        console.log('error >>', errorEl);
+      })
+      .finally(() => {
+        console.log('done!');
+      });
+  }, []);
+    
   return (
     <main>
       <h1>Trendings</h1>
@@ -14,3 +32,4 @@ function Home({ films }) {
 }
 
 export default Home;
+

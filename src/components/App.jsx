@@ -1,38 +1,25 @@
 import { Route, Routes } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { lazy } from "react";
 import { SharedLayout } from "./SharedLayout";
-import { getFilm } from "services/API";
+
 
 const Home = lazy(() => import("../pages/Home"));
-const Movies = lazy(() => import('../pages/Movies'))
+const Movies = lazy(() => import('../pages/Movies'));
+const FilmDetails = lazy(()=> import('../pages/FilmDetails') )
+const Reviews = lazy(()=> import ('../components/Reviews'))
+const Cast = lazy(()=> import ('../components/Cast'))
 
 export const App = () => {
-
-const MakeArrFilms = () => {
-   const [arrFilms, setFilms] = useState([]);
-
-  useEffect(() => {
-    getFilm().then(response => response.json())
-      .then(filmEl => {
-        setFilms(...filmEl);
-      })
-      .catch(errorEl => {
-        console.log('error >>', errorEl);
-      })
-      .finally(() => {
-        console.log('done!');
-      });
-  }, [arrFilms]);
-}
-  MakeArrFilms();
-
 
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
-        <Route index element={<Home films={MakeArrFilms()} />} />
+        <Route index element={<Home />} />
         <Route path="movies" element={<Movies />} />
+        <Route path="movies/:id" element={<FilmDetails />}>
+          <Route path="cast" element={<Cast />} />
+          <Route path="reviews" element={<Reviews />} />
+        </Route>
       </Route>
     </Routes>
   );

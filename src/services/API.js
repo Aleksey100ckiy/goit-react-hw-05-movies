@@ -6,13 +6,17 @@
 //   baseURL: 'https://api.themoviedb.org/3/',
 // });
 
-
 const BASE_URL = "https://api.themoviedb.org/3/";
 const KEY = "0aea76bf17d3a057de2e549752e53890";
-
+const films = [];
 
 export const getFilm = () => {
 
    return fetch(`${BASE_URL}/trending/all/day?api_key=${KEY}&page=1&language=en-US`);
 }
+
+export const getFilmById = (filmId) => {
+  return films.find((film) => film.id === filmId);
+};
+
 

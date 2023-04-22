@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Container, CardWrapper, FilmName } from "./FilmList.styled"
+import { Container, CardWrapper, FilmName, Image } from "./FilmList.styled"
 
 export const FilmList = ({ films }) => {
   return (
@@ -7,8 +7,8 @@ export const FilmList = ({ films }) => {
       {films.map((film) => (
         <CardWrapper key={film.id}>
           <Link to={`${film.id}`}>
-            <img src={`${film.poster_path}`} alt="" />
-            <FilmName>{film.title}</FilmName>
+            <Image src={`https://image.tmdb.org/t/p/w500${film.poster_path}`} alt="" />
+            <FilmName>{(film.title ? film.title : film.name)}</FilmName>
           </Link>
         </CardWrapper>
       ))}
