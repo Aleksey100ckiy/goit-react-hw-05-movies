@@ -3,16 +3,16 @@ import { BackLink } from "../components/BackLink";
 import { Suspense } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
-// import { getFilmById } from "services/API";
+import { getFilmById } from "services/API";
 import { getFilm } from "services/API";
 
 
-const FilmDetails = () => { 
+const FilmDetails = () => {
 
   const [films, setFilms] = useState([]);
+  const [film, setFilm] = useState({});
 
   const { id } = useParams();
-
 
   useEffect(() => {
     getFilm().then(response => response.json())
@@ -29,6 +29,10 @@ const FilmDetails = () => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    setFilm(getFilmById(films, id));
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+}, [films]);
   
   
     const location = useLocation();
@@ -37,7 +41,7 @@ const FilmDetails = () => {
     return (
         <main>
         <BackLink to={backLinkHref}>Back to products</BackLink>
-        {(films !== 0) ? <p>{(films ? console.log(films.map(film=> film), id)  : films)}</p>  : null}
+        {(film !== 0) ? <p>{(films ? console.log(film, id)  : films)}</p>  : null}
     
         <ul>
           <h4>Additional information</h4>
