@@ -33,7 +33,8 @@ const Movies = () => {
   useEffect(() => {
     setVisibleMovies(movies.filter((movie) =>
    (movie.title ? movie.title : movie.name).toLowerCase().includes(searchFilms.toLowerCase())) 
-  );
+    );
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   },[searchParams])
 
   return (
