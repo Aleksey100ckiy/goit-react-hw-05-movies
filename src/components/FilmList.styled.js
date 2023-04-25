@@ -23,7 +23,7 @@ export const FilmName = styled.h3`
 `;
 
 export const Image = styled.img`
- display: block;
-  max-width: 100px;
-  height: 100px;
+height: 100px;
+width: 100px;
+display:block;
 `

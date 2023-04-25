@@ -2,22 +2,62 @@ import {  useParams, useLocation } from "react-router-dom";
 import { BackLink } from "../components/BackLink";
 import { Suspense } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getFilmById } from "services/API";
+import { getFilm } from "services/API";
 
 
 const FilmDetails = () => { 
- 
-    const { id } = useParams();
-    const film = getFilmById(id);
+
+  const [films, setFilms] = useState([]);
+
+  const { id } = useParams();
+
+
+  useEffect(() => {
+    getFilm().then(response => response.json())
+      .then(filmEl => {
+        setFilms((
+          [...filmEl.results]));
+      })
+      .catch(errorEl => {
+        console.log('error >>', errorEl);
+      })
+      .finally(() => {
+        console.log('finaly done!');
+      });
+  }, []);
+
+  
   
     const location = useLocation();
     const backLinkHref = location.state?.from ?? "/movies";
 
     return (
         <main>
-      <BackLink to={backLinkHref}>Back to products</BackLink>
-        <div>
+        <BackLink to={backLinkHref}>Back to products</BackLink>
+        {(films !== 0) ? <p>{(films ? console.log(films.map(film=> film), id)  : films)}</p>  : null}
+    
+        <ul>
+          <h4>Additional information</h4>
+        <li>
+          <Link to="cast">Cast</Link>
+        </li>
+        <li>
+          <Link to="reviews">Reviews</Link>
+        </li>
+      </ul>
+      <Suspense fallback={<div>Loading subpage...</div>}>
+        <Outlet />
+      </Suspense>
+    </main>
+    )
+}
+
+export default FilmDetails;
+
+
+/* <div>
           <ul>
             <li><h2>Name { `${(film.title ? film.title : film.name)}`}</h2>
         <p>
@@ -49,21 +89,4 @@ const FilmDetails = () => {
         </p></li>
           </ul>
         
-        </div>
-        <ul>
-          <h4>Additional information</h4>
-        <li>
-          <Link to="cast">Cast</Link>
-        </li>
-        <li>
-          <Link to="reviews">Reviews</Link>
-        </li>
-      </ul>
-      <Suspense fallback={<div>Loading subpage...</div>}>
-        <Outlet />
-      </Suspense>
-    </main>
-    )
-}
-
-export default FilmDetails;
+        </div> */
