@@ -26,6 +26,7 @@ const FilmDetails = () => {
       .finally(() => {
         console.log('finaly done!');
       });
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   
