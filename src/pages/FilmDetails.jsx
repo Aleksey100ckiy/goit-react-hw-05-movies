@@ -3,7 +3,7 @@ import { BackLink } from "../components/BackLink";
 import { Suspense } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getFilmById } from "services/API";
+// import { getFilmById } from "services/API";
 import { getFilm } from "services/API";
 
 
