@@ -40,7 +40,7 @@ const FilmDetails = () => {
 
     return (
         <main>
-        <BackLink to={backLinkHref}>Back to products</BackLink>
+        <BackLink to={backLinkHref}>Go back!</BackLink>
         {(film !== 0) ? <p>{(films ? console.log(film, id)  : films)}</p>  : null}
     
         <ul>
