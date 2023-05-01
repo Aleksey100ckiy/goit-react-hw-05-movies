@@ -1,6 +1,7 @@
 import { SearchBox } from "../components/SearchBox";
 import { FilmList } from "components/FilmList";
-import { getFilm } from "services/API";
+// import { getMovieById } from "services/API"; 
+import { searchMovie } from "services/API";
 import { useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -15,9 +16,10 @@ const Movies = () => {
     const nextParams = name !== "" ? { name } : {};
     setSearchParams(nextParams);
   };
-
-  useEffect(() => {
-    getFilm().then(response => response.json())
+  
+  const onClick = () => {
+    
+    searchMovie(searchFilms).then(response => response.json())
       .then(filmEl => {
         setMovies((
           [...filmEl.results]));
@@ -28,19 +30,23 @@ const Movies = () => {
       .finally(() => {
         console.log('done!');
       });
-  }, []);
+  };
   
-  useEffect(() => {
-    setVisibleMovies(movies.filter((movie) =>
-   (movie.title ? movie.title : movie.name).toLowerCase().includes(searchFilms.toLowerCase())) 
-    );
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  },[searchParams])
+  
+
+ 
+useEffect(() => {
+  setVisibleMovies(movies.filter((movie) =>
+    (movie.title ? movie.title : movie.name).toLowerCase().includes(searchFilms.toLowerCase()))
+  );
+  //eslint-disable-next-line react-hooks/exhaustive-deps
+}, [movies]);
 
   return (
     <main>
       <h1>Movies</h1>
-      <SearchBox value={searchFilms} onChange={ updateQueryString}></SearchBox>
+      <SearchBox value={searchFilms} onChange={updateQueryString}></SearchBox>
+      <button onClick={onClick} type="Button" className='Button'>Load more</button>
       <FilmList films={ visibleMovies }></FilmList>
     </main>
   );

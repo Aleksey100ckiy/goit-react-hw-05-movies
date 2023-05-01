@@ -1,6 +1,6 @@
 
 import { FilmList } from "components/FilmList";
-import { getFilm } from "services/API";
+import { getTranding } from "services/API";
 import { useState, useEffect } from "react";
 
 function Home() {
@@ -8,7 +8,7 @@ function Home() {
   
 
   useEffect(() => {
-    getFilm().then(response => response.json())
+    getTranding().then(response => response.json())
       .then(filmEl => {
         setFilms((
           [...filmEl.results]));

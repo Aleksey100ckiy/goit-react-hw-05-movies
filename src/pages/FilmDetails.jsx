@@ -3,22 +3,23 @@ import { BackLink } from "../components/BackLink";
 import { Suspense } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getFilmById } from "services/API";
-import { getFilm } from "services/API";
+// import { getFilmById } from "services/API";
+// import { getFilm } from "services/API";
+import { getMovieById } from "services/API";
 
 
 const FilmDetails = () => {
 
-  const [films, setFilms] = useState([]);
+  // const [films, setFilms] = useState([]);
   const [film, setFilm] = useState({});
 
   const { id } = useParams();
 
   useEffect(() => {
-    getFilm().then(response => response.json())
+    getMovieById(id).then(response => response.json())
       .then(filmEl => {
-        setFilms((
-          [...filmEl.results]));
+        setFilm((
+          { ...filmEl }));
       })
       .catch(errorEl => {
         console.log('error >>', errorEl);
@@ -29,10 +30,10 @@ const FilmDetails = () => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    setFilm(getFilmById(films, id));
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-}, [films]);
+//   useEffect(() => {
+//     setFilm(getFilmById(films, id));
+//     //eslint-disable-next-line react-hooks/exhaustive-deps
+// }, [films]);
   
   
     const location = useLocation();
@@ -41,8 +42,21 @@ const FilmDetails = () => {
     return (
         <main>
         <BackLink to={backLinkHref}>Go back!</BackLink>
-        {(film !== 0) ? <p>{(films ? console.log(film, id)  : films)}</p>  : null}
-    
+        {/* {(film !== 0) ? <p>{(film ? console.log(film, id)  : console.log(('Empty')))}</p>  : null} */}    
+        <ul>
+          <img src={`https://image.tmdb.org/t/p/w200${film.poster_path}`} haight='400' alt="{(film.title ? film.title : film.name)}" />
+          <h2>{(film.title ? film.title : film.name)}({film.release_date
+          })</h2>
+          <p>{film.vote_average}%</p>
+        </ul>
+        <li>
+          <h3>Overview</h3>
+          <p>{ film.overview}</p>
+        </li>
+        <li>
+          <h4>Genres</h4>
+          <p>{}</p>
+        </li>
         <ul>
           <h4>Additional information</h4>
         <li>

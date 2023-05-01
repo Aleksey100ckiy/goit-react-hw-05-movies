@@ -12,19 +12,24 @@ const Cast = lazy(()=> import ('../components/Cast'))
 export const App = () => {
 
   return (
+    <div>
     <Routes>
       <Route path="/" element={<SharedLayout />}>
-        <Route index element={<Home />} />
-        <Route path="/:moviesId" element={<FilmDetails />}>
+        <Route index element={<Home  />} />
+        <Route path="/:movies/:id" element={<FilmDetails />}>
           <Route path="cast" element={<Cast />} />
           <Route path="reviews" element={<Reviews />} />
         </Route>
         <Route path="movies" element={<Movies />} />
-        <Route path="movies/:moviesId" element={<FilmDetails />}>
+        <Route path="/:movies/:id" element={<FilmDetails />}>
           <Route path="cast" element={<Cast />} />
           <Route path="reviews" element={<Reviews />} />
+        <Route path="*" element={<Home />} />
         </Route>
       </Route>
     </Routes>
+
+    </div>
+    
   );
 };
