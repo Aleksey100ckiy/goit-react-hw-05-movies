@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { getReviewsMovie } from "services/API";
 
 const Reviews = () => {
-  const [reviews, setReviews] = useState({});
+  const [reviews, setReviews] = useState([]);
   const { id } = useParams();
   // const path  = useLocation();
 
@@ -20,15 +20,15 @@ const Reviews = () => {
         console.log('finaly done!');
       });
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reviews]);
+  }, []);
 
   return (
     <section>
-      {/* {console.log(reviews.results)} */}
-      {(reviews.results.map(result => (<ul>
+      {console.log(reviews)}
+      {/* {reviews.results.map(result => (<ul>
         <li><h2>{result.author}</h2>
           <p>{result.content}</p></li>
-      </ul>)))}
+      </ul>))} */}
       <div>
         <h2>Author: 4.6/5</h2>
         <p>
