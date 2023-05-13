@@ -6,7 +6,7 @@ export const FilmList = ({ films }) => {
     <Container>
       {films.map((film) => (
         <CardWrapper key={film.id}>
-          <Link to={`${film.id}`}>
+          <Link to={`/movies/${film.id}`}>
             <Image src={`https://image.tmdb.org/t/p/w200${film.poster_path}`} alt="" />
             <FilmName>{(film.title ? film.title : film.name)}</FilmName>
           </Link>

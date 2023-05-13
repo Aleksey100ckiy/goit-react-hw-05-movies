@@ -9,10 +9,10 @@ import { getMovieById } from "services/API";
 
 
 const FilmDetails = () => {
-
   // const [films, setFilms] = useState([]);
   const [film, setFilm] = useState({});
-
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/';
   const { id } = useParams();
 
   useEffect(() => {
@@ -25,7 +25,8 @@ const FilmDetails = () => {
         console.log('error >>', errorEl);
       })
       .finally(() => {
-        console.log('finaly done!');
+        console.log('finaly done!')
+          console.log(location.state);;
       });
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -34,17 +35,13 @@ const FilmDetails = () => {
 //     setFilm(getFilmById(films, id));
 //     //eslint-disable-next-line react-hooks/exhaustive-deps
 // }, [films]);
-  
-  
-    const location = useLocation();
-    const backLinkHref = location.state?.from ?? "/movies";
 
     return (
         <main>
         <BackLink to={backLinkHref}>Go back!</BackLink>
         {/* {(film !== 0) ? <p>{(film ? console.log(film, id)  : console.log(('Empty')))}</p>  : null} */}    
         <ul>
-          <img src={`https://image.tmdb.org/t/p/w200${film.poster_path}`} haight='400' alt="{(film.title ? film.title : film.name)}" />
+          <img src={`https://image.tmdb.org/t/p/w300${film.poster_path}`} haight='400' alt="{(film.title ? film.title : film.name)}" />
           <h2>{(film.title ? film.title : film.name)}({film.release_date
           })</h2>
           <p>{film.vote_average}%</p>
@@ -63,7 +60,7 @@ const FilmDetails = () => {
           <Link to="cast">Cast</Link>
         </li>
         <li>
-          <Link to="reviews">Reviews</Link>
+            <Link to="reviews" props={id}>Reviews</Link>
         </li>
       </ul>
       <Suspense fallback={<div>Loading subpage...</div>}>

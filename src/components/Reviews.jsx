@@ -11,7 +11,7 @@ const Reviews = () => {
     getReviewsMovie(id).then(response => response.json())
       .then(filmEl => {
         setReviews((
-          { ...filmEl.results}));
+          {...filmEl}));
       })
       .catch(errorEl => {
         console.log('error >>', errorEl);
@@ -20,17 +20,15 @@ const Reviews = () => {
         console.log('finaly done!');
       });
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [reviews]);
 
   return (
     <section>
-      <>
-      {console.log(reviews,)}
-      {/* {reviews.results.map(({author, content}) => (<ul>
-        <li><h2>{author}</h2>
-          <p>{content}</p></li>
-      </ul>))} */}
-      </>
+      {/* {console.log(reviews.results)} */}
+      {(reviews.results.map(result => (<ul>
+        <li><h2>{result.author}</h2>
+          <p>{result.content}</p></li>
+      </ul>)))}
       <div>
         <h2>Author: 4.6/5</h2>
         <p>
