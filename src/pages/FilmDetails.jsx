@@ -26,7 +26,6 @@ const FilmDetails = () => {
       })
       .finally(() => {
         console.log('finaly done!')
-          console.log(location.state);;
       });
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -41,7 +40,7 @@ const FilmDetails = () => {
         <BackLink to={backLinkHref}>Go back!</BackLink>
         {/* {(film !== 0) ? <p>{(film ? console.log(film, id)  : console.log(('Empty')))}</p>  : null} */}    
         <ul>
-          <img src={`https://image.tmdb.org/t/p/w300${film.poster_path}`} haight='400' alt="{(film.title ? film.title : film.name)}" />
+          <img src={`https://image.tmdb.org/t/p/w500${film.poster_path}`} weight='auto' alt={`(${film.title} ? ${film.title} : ${film.name})}`} />
           <h2>{(film.title ? film.title : film.name)}({film.release_date
           })</h2>
           <p>{film.vote_average}%</p>
@@ -52,7 +51,8 @@ const FilmDetails = () => {
         </li>
         <li>
           <h4>Genres</h4>
-          <p>{}</p>
+          {console.log(film.genres)}
+            {/* {film.genres.map(genre => { return(<p>{genre.name}</p>)})} */}
         </li>
         <ul>
           <h4>Additional information</h4>

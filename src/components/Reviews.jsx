@@ -7,11 +7,11 @@ const Reviews = () => {
   const { id } = useParams();
   // const path  = useLocation();
 
-    useEffect(() => {
+  useEffect(() => {
     getReviewsMovie(id).then(response => response.json())
       .then(filmEl => {
-        setReviews((
-          {...filmEl}));
+        setReviews(
+          [...filmEl.results]);
       })
       .catch(errorEl => {
         console.log('error >>', errorEl);
@@ -20,33 +20,26 @@ const Reviews = () => {
         console.log('finaly done!');
       });
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id]);
 
   return (
     <section>
-      {console.log(reviews)}
-      {/* {reviews.results.map(result => (<ul>
-        <li><h2>{result.author}</h2>
-          <p>{result.content}</p></li>
-      </ul>))} */}
-      <div>
-        <h2>Author: 4.6/5</h2>
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem harum
-          architecto sapiente corporis, voluptatem quas voluptatibus fugiat
-          
-        </p>
-      </div>
-      <div>
-        <h2>Second review - 4.8/5</h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-          nihil ea, eaque fugit amet possimus officiis asperiores aperiam facere
-          et?
-        </p>
-      </div>
+      {/* {console.log(reviews)} */}
+      {reviews.map(review => {
+        return (<ul key={review.id}>
+          <li key={review.id}>
+            <h2>{review.author}</h2>
+            <p>{review.content}</p></li>
+        </ul>
+          )
+      })}
     </section>
   );
 };
 
 export default Reviews;
+
+ // <ul>
+//         <li><h2>{review.author}</h2>
+//           <p>{review.content}</p></li>
+//       </ul>

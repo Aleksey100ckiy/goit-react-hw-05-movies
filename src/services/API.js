@@ -30,8 +30,10 @@ export const getMovieById = async (movie_id) =>{
 }
 
 export const getCastMovie = async (movie_id) => {
-  
-  return await fetch(`${BASE_URL}/movie/${movie_id}/credits?api_key=${KEY}&language=en-US`)
+  try {
+    return await fetch(`${BASE_URL}/movie/${movie_id}/credits?api_key=${KEY}&language=en-US`)
+  } catch (error) {  
+  }
 }
 
 export const getReviewsMovie = async (movie_id) => {
